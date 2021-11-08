@@ -1,0 +1,86 @@
+/* 
+Theme Name:    Babushka
+Template:     twentynineteen
+Version:      1.0.8
+Description:  Twenty Nineteen Child Theme
+Author:       Martin B
+
+*/
+
+
+
+@media only screen and (min-width: 768px) {
+
+  .entry .entry-content>*,
+  .entry .entry-summary>* {
+    max-width: calc(12 * (100vw / 12) - 100px);
+  }
+}
+
+@media only screen and (min-width: 1168px) {
+
+  .entry .entry-content>*,
+  .entry .entry-summary>* {
+    max-width: calc(12 * (100vw / 12) - 28px);
+  }
+}
+
+button {
+  border-radius: 0;
+}
+
+.valgt {
+  background: darkorange;
+
+}
+
+
+#ret-oversigt {
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+
+
+}
+
+#ret-oversigt h1 {
+  grid-column: 1/4;
+}
+
+.overskrifter {
+  border-bottom: 2px solid #000;
+  margin: 10px 0;
+}
+
+#ret-oversigt article {
+  cursor: pointer;
+  border: 1px solid darkorange;
+}
+
+#ret-oversigt article h2 {
+  font-size: 1.5rem;
+}
+
+#ret-oversigt article h2,
+#ret-oversigt article p {
+  padding: 10px;
+}
+
+/*Singleview   */
+.single-ret main {
+  max-width: calc(12 * (100vw / 12) - 100px);
+  margin: 0 auto;
+}
+
+@media only screen and (min-width: 768px) {
+  .single-ret main {
+    max-width: calc(10 * (100vw / 12) - 100px);
+
+  }
+
+  /*	.gridsection{
+		display:grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+	}*/
+}
