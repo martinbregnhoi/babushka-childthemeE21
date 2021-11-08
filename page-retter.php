@@ -14,13 +14,7 @@ get_header();
 
 	<section id="primary" class="content-area retter entry">
 		<main id="main" class="site-main entry-content">
-      <!--        <nav>
-            <button class="filter" data-ret="alle">Alle</button>
-            <button class="filter" data-ret="forretter">Forretter</button>
-            <button class="filter" data-ret="hovedretter">Hovedretter</button>
-            <button class="filter" data-ret="desserter">Desserter</button>
-            <button class="filter" data-ret="drikkevarer">Drikkevarer</button>
-        </nav>-->
+  
             <nav id="indhold-filtrering"><button class="filter valgt" data-cont="alle">Alle</button></nav>
             <nav id="filtrering"><button class="filter valgt" data-ret="alle">Alle</button></nav>
         <h1 id="overskrift">Retter</h1>
@@ -50,12 +44,15 @@ get_header();
             console.log(siteUrl);
             
             getJson();
-            //addEventListenersToButtons();
+    
         }
 
         async function getJson() {
+            //hent alle custom posttypes retter
             const url = siteUrl +"wp-json/wp/v2/ret?per_page=100";
+            //hent basis categories
             const catUrl = "http://mabe-kea.dk/E19/babushka/wordpress/wp-json/wp/v2/categories";
+             //hent custom category: indhold
             const contUrl = "http://mabe-kea.dk/E19/babushka/wordpress/wp-json/wp/v2/indhold";
             let response = await fetch(url);
             let catResponse = await fetch(catUrl);
@@ -69,13 +66,13 @@ get_header();
             function opretKnapper(){
             
             categories.forEach(cat=>{
-               console.log(cat.id);
+               //console.log(cat.id);
                 if(cat.name != "Uncategorized"){
                 document.querySelector("#filtrering").innerHTML += `<button class="filter" data-ret="${cat.id}">${cat.name}</button>`
                 }
             })
               indhold.forEach(cont=>{
-               console.log(cont.id);
+               //console.log(cont.id);
                 document.querySelector("#indhold-filtrering").innerHTML += `<button class="filter" data-cont="${cont.id}">${cont.name}</button>`
              
             })
@@ -88,6 +85,7 @@ get_header();
             console.log({filterRet});
             console.log({filterIndhold});
             retter.forEach(ret => {
+                //tjek filterRet og filterIndhold til filtrering
                 if ((filterRet == "alle"  || ret.categories.includes(parseInt(filterRet))) && (filterIndhold == "alle"  || ret.indhold.includes(parseInt(filterIndhold)))) {
                     const klon = skabelon.cloneNode(true).content;
                     klon.querySelector("h2").textContent = ret.title.rendered;
@@ -113,20 +111,23 @@ get_header();
         function filtrering() {
             filterRet = this.dataset.ret;
             document.querySelector("h1").textContent = this.textContent;
+            //fjern .valgt fra alle
             document.querySelectorAll("#filtrering .filter").forEach(elm => {
                 elm.classList.remove("valgt");
             });
-            //console.log(this);
+          
+            //tilføj .valgt til den valgte
             this.classList.add("valgt");
             visRetter();
         }
          function filtreringIndhold() {
             filterIndhold = this.dataset.cont;
             document.querySelector("h1").textContent = this.textContent;
+             //fjern .valgt fra alle
             document.querySelectorAll("#indhold-filtrering .filter").forEach(elm => {
                 elm.classList.remove("valgt");
             });
-            //console.log(this);
+            //tilføj .valgt til den valgte
             this.classList.add("valgt");
             visRetter();
         }
